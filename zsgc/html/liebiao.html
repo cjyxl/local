@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>增删改查</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/zsgc.css">
+</head>
+<body>
+    <header>
+        <h1>欢迎来到学生登记处！</h1>
+    </header>
+    <section>
+    <div class="btns"  >
+        <button type="button" class="btn btn-default" onclick="showAddForm()">增加</button>
+        <!-- <button type="button" class="btn btn-default" onclick="showDeleteForm(newstudent)">删除</button> -->
+        <!-- <button type="button" class="btn btn-default" onclick="showUpdateForm(newstudent)">编辑</button> -->
+        <button type="button" class="btn btn-default" onclick="showFindForm()">查看</button>
+    </div> <br> 
+    <table class="table table-bordered">
+        <thead>
+        <tr id="top">
+            <td colspan="5">学生登记表</td>
+        </tr>
+        <tr id="first">
+            <td>序号</td>
+            <td>姓名</td>
+            <td>班级</td>
+            <td>学号</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody class="studentTableBody">
+        </tbody>
+    </table>
+    </section>
+    <div class="container add-student-form" style="display: none;">
+        <form class="add" role="search" onsubmit="addStudent(event)">
+            <h2>添加学生信息</h2> <hr>
+            <input type="hidden" class="id-input" name="id">
+            <div class="form-group">
+                <label for="text">姓名：</label>
+                <input type="text" class=" name-input" placeholder="请输入你的姓名" name="name">
+            </div> <br> 
+            <div class="form-group">
+                <label for="cla">班级：</label>
+                <input type="cla" class=" cla-input" placeholder="请输入你的班级" name="cla">
+            </div> <br> 
+            <div class="form-group">
+                <label for="num">学号：</label>
+                <input type="num" class=" num-input" placeholder="请输入你的学号" name="num">
+            </div> <br> 
+            <button type="submit" class="btn btn-primary" >提交</button>
+            <button type="cancel" class="btn btn-default" onclick="hide()">取消</button>
+        </form>
+    </div>
+    <div class="container find-student-form" style="display: none;">
+        <form class="find" onsubmit="findStudent(event)">
+            <h2>查看学生信息</h2> <hr>
+            <input type="hidden" class="id-input" name="id">
+            <div class="form-group">
+                <label for="text">姓名：</label>
+                <input type="text" class=" name-input" placeholder="请输入你的姓名" name="name">
+            </div> <br> 
+            <div class="form-group">
+                <label for="cla">班级：</label>
+                <input type="cla" class=" cla-input" placeholder="请输入你的班级" name="cla">
+            </div> <br> 
+            <div class="form-group">
+                <label for="num">学号：</label>
+                <input type="num" class=" num-input" placeholder="请输入你的学号" name="num">
+            </div> <br> 
+            <button type="submit" class="btn btn-primary" >查找</button>
+            <button type="cancel" class="btn btn-default" onclick="hide()">取消</button>
+        </form>
+    </div>
+    <div class="container delete-student-form" style="display: none;">
+        <form class="delete" onsubmit="deleteStudent(event)">
+            <h2>删除学生信息</h2> <hr>
+            <input type="hidden" class="id-input" name="id">
+            <div class="form-group">
+                <label for="text">姓名：</label>
+                <input type="text" class=" name-input" placeholder="请输入你的姓名" name="name">
+            </div> <br> 
+            <div class="form-group">
+                <label for="cla">班级：</label>
+                <input type="cla" class=" cla-input" placeholder="请输入你的班级" name="cla">
+            </div> <br> 
+            <div class="form-group">
+                <label for="num">学号：</label>
+                <input type="num" class=" num-input" placeholder="请输入你的学号" name="num">
+            </div> <br> 
+            <button type="submit" class="btn btn-danger" >删除</button>
+            <button type="cancel" class="btn btn-default" onclick="hide()">取消</button>
+      </form>
+    </div>
+    <div class="container update-student-form" style="display: none;">
+        <form class="update" onsubmit="updateStudent(event)">
+            <h2>修改学生信息</h2> <hr>
+            <input type="hidden" class=" id-input" name="id">
+            <div class="form-group">
+                <label for="text">姓名：</label>
+                <input type="text" class="name-input" placeholder="请输入你的姓名" name="name">
+            </div> <br> 
+            <div class="form-group">
+                <label for="cla">班级：</label>
+                <input type="cla" class=" cla-input" placeholder="请输入你的班级" name="cla">
+            </div> <br> 
+            <div class="form-group">
+                <label for="num">学号：</label>
+                <input type="num" class=" num-input" placeholder="请输入你的学号" name="num">
+            </div> <br> 
+            <button type="submit" class="btn btn-primary" >提交</button>
+            <button type="cancel" class="btn btn-default" onclick="hide()">取消</button>
+      </form>
+    </div>
+
+    <script type="text/javascript">
+        let studentList=[];
+        
+
+        //add
+        function addStudent(event){
+            event.preventDefault();  //阻止表单默认提交行为
+            const nameInput = document.querySelector(".add-student-form .name-input");
+            const claInput = document.querySelector(".add-student-form .cla-input");
+            const numInput = document.querySelector(".add-student-form .num-input");
+
+            const newStudent = {
+                id:Date.now(), //使用时间戳=>id
+                name:nameInput.value,
+                cla:claInput.value,  
+                num:numInput.value
+            };
+            studentList.push(newStudent);
+            renderStudentTable();
+            hide();
+            alert('添加成功！');
+
+            nameInput.value = "";
+            claInput.value = "";
+            numInput.value = "";
+            
+        }
+
+        //update
+        function updateStudent(event){
+            event.preventDefault();
+            const idInput = document.querySelector(".update-student-form .id-input");
+            const nameInput = document.querySelector(".update-student-form .name-input");
+            const claInput = document.querySelector(".update-student-form .cla-input");
+            const numInput = document.querySelector(".update-student-form .num-input");
+
+            //parseInt 第二个参数是转进制值
+            const index = studentList.findIndex(student => student.id === parseInt(idInput.value));
+            if(index !== -1){
+                studentList[index] = { 
+                    id: parseInt(idInput.value), 
+                    name: nameInput.value, 
+                    cla: claInput.value, 
+                    num: numInput.value 
+                };
+                // studentList.splice(index,1,updateStudent);
+                renderStudentTable();
+                hide();
+                alert('更新成功！');
+                idInput.value = "";
+                nameInput.value = "";
+                claInput.value = "";
+                numInput.value = "";
+            }else{
+                alert('更新失败，未找到对应学生！');
+            }
+        }
+
+        //del
+        function deleteStudent(event){
+            event.preventDefault();
+            const idInput = document.querySelector(".delete-student-form .id-input");
+            const index = studentList.findIndex(student => 
+                 student.id === parseInt(idInput.value) 
+                );
+
+            if (index !== -1) {
+                studentList.splice(index, 1);
+                renderStudentTable();
+                hide();
+                alert('删除成功！');
+                idInput.value = "";
+            }else{
+                alert('删除失败，未找到对应学生！');
+            }
+        }
+
+        //find
+        function findStudent(event) {
+            event.preventDefault();
+
+           const idInput = document.querySelector(".find-student-form .id-input");
+           const nameInput = document.querySelector(".find-student-form .name-input");
+           const claInput = document.querySelector(".find-student-form .cla-input");
+           const numInput = document.querySelector(".find-student-form .num-input");
+
+           const filteredStudent = studentList.filter(student => {
+                return student.name === nameInput.value &&
+                    student.cla === claInput.value &&
+                    student.num === numInput.value;
+            });
+
+           if (filteredStudent.length > 0) {
+                renderStudentTable(filteredStudent);
+                hide();
+                alert('查找成功!');
+                idInput.value = "";
+                nameInput.value = "";
+                claInput.value = "";
+                numInput.value = "";
+            } else {
+                alert("未找到符合条件的学生！");
+            }
+
+            
+            // resetForm(nameInput, claInput, numInput);
+        }
+
+        
+        //readerStudentTable 渲染
+        function renderStudentTable(){
+            const tableBody = document.querySelector(".studentTableBody");
+            tableBody.innerHTML = "";  //clear
+
+            var filteredStudent = null; 
+
+            // 判断是否存在过滤后的学生信息，如果存在则使用过滤后的信息渲染表格，否则使用完整的学生列表
+            const studentsToRender = filteredStudent || studentList;
+
+            studentsToRender.forEach((student,index) => {
+                const row = document.createElement('tr');
+                const idCell = document.createElement('td');
+                idCell.innerText = index + 1;
+                const nameCell = document.createElement('td');
+                nameCell.innerText = student.name;
+                const claCell = document.createElement("td");
+                claCell.innerText = student.cla;
+                const numCell =document.createElement("td");
+                numCell.innerText =student.num;
+                const actionCell = document.createElement("td");
+                const editButton = document.createElement("button");
+                editButton.innerText = "编辑";
+                editButton.classList.add('btn', 'btn-primary');
+                editButton.onclick  = () => showUpdateForm(student);
+                const deleteButton = document.createElement("button");
+                deleteButton.innerText = "删除";
+                deleteButton.classList.add('btn', 'btn-danger');
+                deleteButton.onclick  = () => showDeleteForm(student);
+                actionCell.appendChild(editButton);
+                actionCell.appendChild(deleteButton);
+                row.appendChild(idCell);
+                row.appendChild(nameCell);
+                row.appendChild(claCell);
+                row.appendChild(numCell);
+                row.appendChild(actionCell);
+                tableBody.appendChild(row);
+            })
+        }
+
+        //显示表单
+        function showAddForm() {
+            const addFormContainer = document.querySelector(".add-student-form");
+            addFormContainer.style.display = "block";
+        }
+
+        function showDeleteForm(student) {
+            if (student) {
+                document.querySelector('.delete-student-form .id-input').value = student.id;
+                document.querySelector('.delete-student-form .name-input').value = student.name;
+                document.querySelector('.delete-student-form .cla-input').value = student.cla;
+                document.querySelector('.delete-student-form .num-input').value = student.num;
+            } else {
+                document.querySelector('.delete-student-form .id-input').value = '';
+                document.querySelector('.delete-student-form .name-input').value = '';
+                document.querySelector('.delete-student-form .cla-input').value = '';
+                document.querySelector('.delete-student-form .num-input').value = '';
+            }
+            document.querySelector('.delete-student-form').style.display = 'block';
+        }
+
+
+        function showUpdateForm(student) {
+            document.querySelector('.update-student-form .id-input').value = student.id;
+            document.querySelector('.update-student-form .name-input').value = student.name;
+            document.querySelector('.update-student-form .cla-input').value = student.cla;
+            document.querySelector('.update-student-form .num-input').value = student.num;
+            const updateFormContainer = document.querySelector(".update-student-form");
+            updateFormContainer.style.display = "block";
+        }
+
+        function showFindForm() {
+            const findFormContainer = document.querySelector(".find-student-form");
+            findFormContainer.style.display = "block";
+        }
+
+        function hide() {
+            const forms = document.querySelectorAll(".container");
+            forms.forEach(container => container.style.display = "none");
+        }
+
+        // 绑定事件处理程序
+        document.querySelector(".add-student-form button").addEventListener("submit", addStudent);
+        document.querySelector(".update-student-form button").addEventListener("submit", updateStudent);
+        document.querySelector(".find-student-form button").addEventListener("submit", findStudent);
+        document.querySelector(".delete-student-form button").addEventListener("submit", deleteStudent);
+
+        //
+        studentList.push({
+            id:1,
+            name:'Amy',
+            cla:'软工一班',
+            num:'20220001'
+        });
+
+         //reset
+        // function resetForm(...inputs){
+        //     inputs.forEach(input => input.value = "");
+        // }
+
+        //渲染学生表格
+        renderStudentTable();
+    </script>
+</body>
+</html>
